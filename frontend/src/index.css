@@ -1,0 +1,549 @@
+.siteWidth{
+  max-width: 1440px;
+  margin: auto;
+  padding: 0px 70px;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+@media (width < 768px){
+  .imageLine::before{
+    height: 365px !important;
+}
+  .siteWidth{
+    padding: 0px 20px;
+  }
+  .footerLinks li{
+    font-size: 14px;
+  }
+  
+}
+@media (width < 900px){
+  .recentProject{
+    grid-area: 1;
+  }
+  .logoWrapper{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+}
+@media (width > 900px){
+  .blogSidebar{
+    position: sticky;
+    top:97px;
+    height: fit-content;
+  }
+  .recentProject img{
+    min-width: 300px;
+    max-width: 550px;
+  }
+}
+
+@media (900px < width < 1200px){
+  .imageLine::before{
+    height: 370px !important;
+}
+}
+#appHeader{
+  transition: all 0.1s ease-in-out;
+}
+.next,
+.previous {
+  display: none;
+}
+.paginationWrapper a svg {
+  color: grey;
+}
+
+.pageRoot {
+  display: flex;
+}
+
+
+ul[role="navigation"] {
+  display: flex;
+  list-style-type: none;
+  padding-left: 0px;
+  align-items: center;
+}
+
+ul[role="navigation"] li {
+  margin: 0px 10px;
+  padding: 5px 0px;
+  text-decoration: none;
+  border: 1px solid #58b79a;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+ul[role="navigation"] li a {
+  padding: 5px 12px;
+  font-weight: 700;
+}
+
+ul[role="navigation"] li.break {
+  border: 0px solid black;
+}
+
+ul[role="navigation"] li.selected {
+  border: 1px solid #58b79a;
+  background-color: #58b79a;
+}
+
+ul[role="navigation"] li:first-child,
+ul[role="navigation"] li:last-child {
+  border: 0px solid rgb(0, 0, 0);
+}
+
+ul[role="navigation"] li:first-child a,
+ul[role="navigation"] li:last-child a {
+  padding: 0px;
+  margin-top: 0px;
+}
+
+.newsletterEmailInput label {
+  padding: 0px 20px;
+}
+
+.letterInputParent .MuiFormControl-root.MuiTextField-root .MuiInputBase-root.MuiFilledInput-root::before,
+.letterInputParent .MuiFormControl-root.MuiTextField-root .MuiInputBase-root.MuiFilledInput-root::before {
+  border-bottom: 0px solid silver !important;
+}
+
+.newsletterEmailInput input {
+  background: #ffffff;
+  box-shadow: 1px 2px 3px #dbdbdb;
+}
+
+.newsletterEmailInput label+div::before {
+  border-bottom: none;
+}
+
+.newsletterEmailInput label .css-1ff8729-MuiInputBase-root-MuiFilledInput-root:hover {
+  border-bottom: none;
+}
+
+.ani {
+  display: inline-block;
+  width: 0px;
+  overflow: hidden;
+  animation: loding 1s ease-in-out infinite;
+  height: 100%;
+  position: relative;
+  top: 11px;
+  color: #2167ff;
+  padding-left: 4px;
+}
+
+@keyframes loding {
+  0% {
+    width: 0px;
+  }
+
+  30% {
+    width: 11px;
+  }
+
+  65% {
+    width: 22px;
+  }
+
+  95% {
+    width: 33px;
+  }
+}
+
+body {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: open sans !important;
+}
+
+.letsTalkFields .MuiInputBase-root {
+  background-color: #ffffff;
+}
+
+.menuBtn {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation16.MuiDrawer-paper {
+  background-color: #ffffff;
+}
+
+.teamImage:hover {
+  transform: scale(1.1);
+}
+
+.work:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.contactUpperInputWrapper .MuiFormControl-root.MuiTextField-root {
+  margin-bottom: 5px;
+}
+
+.contactLowerInputWrapper input {
+  height: 60px;
+}
+
+.contactUpperInputWrapper .MuiFormControl-root.MuiTextField-root .MuiInputBase-root.MuiFilledInput-root::before,
+.contactLowerInputWrapper .MuiFormControl-root.MuiTextField-root .MuiInputBase-root.MuiFilledInput-root::before {
+  border: 1px solid rgb(20, 20, 20) !important;
+  background-color: #ffffff;
+  height: 0px;
+}
+
+.contactUpperInputWrapper input,
+.contactLowerInputWrapper input,
+.contactLowerInputWrapper .MuiInputBase-root {
+  background-color: #ffffff !important;
+}
+
+.contactLowerInputWrapper .MuiInputBase-root.MuiFilledInput-root {
+  height: 100%;
+  margin-bottom: 5px;
+}
+
+.css-10botns-MuiInputBase-input-MuiFilledInput-input {
+  border: 1px solid rgb(205 201 201) !important;
+  box-shadow: 1px 0px 3px #bfbfbf73;
+  border-radius: 3px;
+}
+
+.pageWidth {
+  max-width: 1920px;
+  margin: auto;
+}
+
+.agencyServices img {
+  width: 100%;
+  height: 100%;
+  filter: brightness(0.5);
+}
+.weDo img {
+  width: 100%;
+  height: 100%;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.center {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.leftContent::before {
+  content: "''";
+  text-align: center;
+  font-size: 95px;
+  color: #ffffff;
+  font-weight: 300;
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  display: block;
+  background-color: #262626;
+  position: relative;
+  top: -45px;
+  box-shadow: 1px 2px 6px rgb(142 74 252);
+}
+.imageLine{
+  position: relative;
+  z-index: 3;
+}
+.imageLine::before{
+  content:'';
+  width: 300px;
+  height: 400px;
+  position: absolute;
+  top:-50px;
+  left:0px;
+  border:10px solid #ffae1e;
+  z-index: -1;
+}
+.appBar .MuiBox-root.css-19kzrtu {
+  display: none;
+}
+
+#navbarNav li {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: poppins;
+  margin-left: 30px;
+}
+
+@media screen and (max-width:540px) {
+  #footerBlog {
+    margin: 35px 0px !important;
+  }
+
+  .logoWrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width:899px) {
+
+  .leftContent::before {
+    top: -28px;
+  }
+
+  .menuBtn {
+    color: #535353;
+    margin: 0px 0px 0px 0px !important;
+    padding: 3px;
+    font-weight: 600;
+    font-size: 17px;
+  }
+
+  .headerDiv {
+    display: none;
+  }
+
+}
+
+@media screen and (min-width:900px) {
+  .homeBanner {
+    margin-top: 0px;
+  }
+
+  .menuBtn {
+    color: #000000;
+    padding: 0px 5px 5px 9px;
+  }
+
+}
+
+@media screen and (min-width:900px) and (max-width:1025px) {
+  .menuBtn {
+    margin-left: 20px !important;
+  }
+}
+
+@media screen and (max-width:1024px) {
+  .siteLogo {
+    margin-left: 20px;
+  }
+  .skillPill{
+    height:190px;
+  }
+}
+
+.seoPageContentRoot p {
+  margin: 0px;
+}
+
+/*main seo page form css */
+.seoPageContentRoot .seofrom .elementor-form input {
+  border: 1px solid #ccc !important;
+  font-family: 'Open Sans' !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+  margin-top: 5px;
+  height: 44px !important;
+  border-radius: 0px;
+  margin-right: 0;
+}
+
+.seoPageContentRoot .seofrom .elementor-form select {
+  border: 1px solid #ccc !important;
+  margin-top: 5px;
+  font-size: 13px;
+  font-family: 'Open Sans' !important;
+  font-weight: 300 !important;
+  height: 70px !important;
+  border-radius: 0px;
+}
+
+.seoPageContentRoot .seofrom .elementor-form select option,
+.seoPageContentRoot .seofrom .elementor-form input::placeholder {
+  font-family: 'Open Sans' !important;
+  font-weight: 300 !important;
+
+}
+
+.seoPageContentRoot .seofrom .elementor-form textarea {
+  border: 1px solid #ccc !important;
+  border-radius: 0px;
+  margin-right: 0;
+}
+
+.seoPageContentRoot .seofrom .elementor-form [type="checkbox"] {
+  height: inherit !important;
+}
+
+.seoPageContentRoot .elementor-field-option label {
+  color: #7a7a7a !important;
+  font-family: 'Open Sans' !important;
+  font-weight: 300 !important;
+}
+
+.seoPageContentRoot .seofrom .elementor-form button {
+  cursor: pointer;
+}
+
+.seoPageContentRoot .seofrom .elementor-form .elementor-field-option {
+  padding-bottom: 5px;
+}
+
+.seoPageContentRoot .seofrom .elementor-form [type="checkbox"] {
+  margin-top: 0;
+  margin-right: 5px;
+}
+
+.seoPageContentRoot .seofrom .elementor-form #form-field-selectform {
+  height: 44px !important;
+}
+
+/*main seo page form css end */
+
+.reviewImage {
+  background: black;
+  padding: 5px 15px;
+  border-radius: 3px;
+}
+
+.appBar {
+  border-bottom: 1px solid rgb(237 228 228);
+}
+
+.logoText {
+  font-size: 35px;
+  margin: 0px;
+  color: #000000;
+  font-weight: 700;
+}
+
+.servicesUl {
+  margin: 30px 0px;
+}
+
+.servicesUl li {
+  margin-bottom: 10px;
+}
+
+.wedoRight img{
+  border-radius: 5px;
+}
+.categoryTile {
+  margin: 3px 0px 13px 0;
+}
+.skillPill{
+  border-radius: 5px;
+}
+.categoryTile a {
+  margin-right: 10px;
+  border-radius: 16px;
+  padding: 2px 11px;
+  font-weight: 700;
+}
+
+.categoryTile a:nth-child(1) {
+  border: 2px solid #ffae1e;
+}
+
+.categoryTile a:nth-child(2) {
+  border: 2px solid #2aa6df;
+}
+.categoryTile a:nth-child(3) {
+  border: 2px solid #8bdf2a;
+}
+.titleBorder{
+  width: 50%;
+}
+.titleBorder span:first-child{
+  width: 45%;
+  height: 5px;
+  display: inline-block;
+  background-color: rgb(255, 141, 75);
+}
+.titleBorder span:nth-child(2){
+  width: 35%;
+  height: 5px;
+  display: inline-block;
+  background-color: rgb(67, 217, 223);
+}
+.titleBorder span:nth-child(3){
+  width: 20%;
+  height: 5px;
+  display: inline-block;
+  background-color: rgb(174, 0, 255);
+}
+
+.serviceRight{
+  background-position: center;
+  background-size: cover;
+}
+/* For browsers that support the text-stroke property */
+.logoText {
+  color: transparent;
+  /* Set the text color */
+  -webkit-text-stroke: 1.5px black;
+  /* Set the stroke width and color for WebKit browsers */
+  text-stroke: 2px black;
+  /* Set the stroke width and color for other browsers */
+}
+.servicesWrapperRight > div{
+  opacity: 1;
+  transition:all 0.2s ease-in;
+  margin-top: 100px;
+}
+.servicesWrapperRight > div p,
+.servicesWrapperRight > div ul li{
+  font-size: 17px;
+}
+@media (width>= 1300px){
+  .servicesWrapperRight > div{
+    padding-top:100px;
+  }
+}
+
+/* Example CSS for the carousel navigation buttons */
+.slick-prev,
+.slick-next {
+  position: absolute !important;
+  bottom:-14px !important;
+  top: auto !important;
+  z-index: 1;
+  cursor: pointer;
+}
+.slick-prev:before, .slick-next:before{
+  font-size: 37px !important;
+    padding: 5.2px 2.1px 0px 3px;
+    color:#1a66fbd4!important;
+  background-color:hsl(219, 100%, 95%)!important;
+  border-radius: 50%;
+  opacity: 1 !important;
+}
+.slick-prev {
+  left: auto !important;
+  right: 130px;
+}
+.servicesUl li{
+  list-style-type: none;
+  position: relative;
+}
+.servicesUl li::before{
+  content: '';
+  background-image: url('./images/tick.png');
+  background-position: center;
+  background-size: contain;
+  position: absolute;
+  top: 4px;
+  left: -25px;
+  height: 17px;
+  width: 17px;
+}
+.slick-next {
+  right: 80px!important;
+}
