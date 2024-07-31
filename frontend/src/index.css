@@ -547,3 +547,8 @@ img {
 .slick-next {
   right: 80px!important;
 }
+
+.allRooms{
+  padding-top: 50px;
+  height: calc(100vh - 65px);
+}

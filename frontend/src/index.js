@@ -9,7 +9,7 @@ import App from './app';
 
 const Root = () => {
   const location = useLocation();
-  const hideFooter = location.pathname === '/register' || location.pathname === '/login';
+  const hideFooter = location.pathname === '/register' || location.pathname === '/login' || location.pathname === '/pg' || location.pathname === '/addRoom';
 
   return (
     <>

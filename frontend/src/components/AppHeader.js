@@ -17,7 +17,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
-import PersonAdd from '@mui/icons-material/PersonAdd';
+import Person from '@mui/icons-material/Person';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 
@@ -204,6 +204,7 @@ export default function AppHeader(props) {
           >
             {drawer}
           </Drawer>
+          
         </Box>
         <Box component="main" sx={{ p: 3 }}>
           <Toolbar />
@@ -261,12 +262,14 @@ export default function AppHeader(props) {
           <Avatar /> My account
         </MenuItem>
         <Divider />
+        <Link to="/pg">
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <PersonAdd fontSize="small" />
+            <Person fontSize="small" />
           </ListItemIcon>
-          Add another account
+          Business Dashbord
         </MenuItem>
+        </Link>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />

@@ -10,6 +10,9 @@ import axios from 'axios';
 import { useState, createContext, useEffect } from 'react';
 import Login from './pages/login';
 import Register from './pages/register';
+import Pg from './pages/pg';
+import RoomDetails from './components/pgComponents/roomDetails';
+import AddRoom from './components/pgComponents/addRoom';
 
 const blogData = createContext(null);
 const blogCategories = createContext(null);
@@ -95,6 +98,9 @@ export default function App() {
                         <Route path="contact" element={<Contact />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
+                        <Route path="/pg" element={<Pg />} />
+                        <Route path="/pg/:path" element={<RoomDetails />} />
+                        <Route path="/addRoom" element={<AddRoom />} />
                     </Routes>
                     </popularBlogPosts.Provider>
                 </blogCategories.Provider>
@@ -103,4 +109,4 @@ export default function App() {
     )
 }
 
-export { blogData, blogCategories, popularBlogPosts };
+export { blogData, blogCategories, popularBlogPosts }; 
