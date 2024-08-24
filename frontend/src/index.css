@@ -1,57 +1,68 @@
-.siteWidth{
+.siteWidth {
   max-width: 1440px;
   margin: auto;
   padding: 0px 70px;
 }
+
 body::-webkit-scrollbar {
   display: none;
 }
-@media (width < 768px){
-  .imageLine::before{
+
+@media (width < 768px) {
+  .imageLine::before {
     height: 365px !important;
-}
-  .siteWidth{
+  }
+
+  .siteWidth {
     padding: 0px 20px;
   }
-  .footerLinks li{
+
+  .footerLinks li {
     font-size: 14px;
   }
-  
+
 }
-@media (width < 900px){
-  .recentProject{
+
+@media (width < 900px) {
+  .recentProject {
     grid-area: 1;
   }
-  .logoWrapper{
+
+  .logoWrapper {
     display: flex;
     justify-content: center;
     margin-bottom: 25px;
   }
 }
-@media (width > 900px){
-  .blogSidebar{
+
+@media (width > 900px) {
+  .blogSidebar {
     position: sticky;
-    top:97px;
+    top: 97px;
     height: fit-content;
   }
-  .recentProject img{
+
+  .recentProject img {
     min-width: 300px;
     max-width: 550px;
   }
 }
 
-@media (900px < width < 1200px){
-  .imageLine::before{
+@media (900px < width < 1200px) {
+  .imageLine::before {
     height: 370px !important;
+  }
 }
-}
-#appHeader{
+
+#appHeader {
   transition: all 0.1s ease-in-out;
 }
+
 .next,
 .previous {
   display: none;
 }
+
 .paginationWrapper a svg {
   color: grey;
 }
@@ -225,6 +236,7 @@ body {
   height: 100%;
   filter: brightness(0.5);
 }
+
 .weDo img {
   width: 100%;
   height: 100%;
@@ -256,20 +268,23 @@ img {
   top: -45px;
   box-shadow: 1px 2px 6px rgb(142 74 252);
 }
-.imageLine{
+
+.imageLine {
   position: relative;
   z-index: 3;
 }
-.imageLine::before{
-  content:'';
+
+.imageLine::before {
+  content: '';
   width: 300px;
   height: 400px;
   position: absolute;
-  top:-50px;
-  left:0px;
-  border:10px solid #ffae1e;
+  top: -50px;
+  left: 0px;
+  border: 10px solid #ffae1e;
   z-index: -1;
 }
+
 .appBar .MuiBox-root.css-19kzrtu {
   display: none;
 }
@@ -334,8 +349,9 @@ img {
   .siteLogo {
     margin-left: 20px;
   }
-  .skillPill{
-    height:190px;
+
+  .skillPill {
+    height: 190px;
   }
 }
 
@@ -432,15 +448,18 @@ img {
   margin-bottom: 10px;
 }
 
-.wedoRight img{
+.wedoRight img {
   border-radius: 5px;
 }
+
 .categoryTile {
   margin: 3px 0px 13px 0;
 }
-.skillPill{
+
+.skillPill {
   border-radius: 5px;
 }
+
 .categoryTile a {
   margin-right: 10px;
   border-radius: 16px;
@@ -455,35 +474,41 @@ img {
 .categoryTile a:nth-child(2) {
   border: 2px solid #2aa6df;
 }
+
 .categoryTile a:nth-child(3) {
   border: 2px solid #8bdf2a;
 }
-.titleBorder{
+
+.titleBorder {
   width: 50%;
 }
-.titleBorder span:first-child{
+
+.titleBorder span:first-child {
   width: 45%;
   height: 5px;
   display: inline-block;
   background-color: rgb(255, 141, 75);
 }
-.titleBorder span:nth-child(2){
+
+.titleBorder span:nth-child(2) {
   width: 35%;
   height: 5px;
   display: inline-block;
   background-color: rgb(67, 217, 223);
 }
-.titleBorder span:nth-child(3){
+
+.titleBorder span:nth-child(3) {
   width: 20%;
   height: 5px;
   display: inline-block;
   background-color: rgb(174, 0, 255);
 }
 
-.serviceRight{
+.serviceRight {
   background-position: center;
   background-size: cover;
 }
+
 /* For browsers that support the text-stroke property */
 .logoText {
   color: transparent;
@@ -493,18 +518,21 @@ img {
   text-stroke: 2px black;
   /* Set the stroke width and color for other browsers */
 }
-.servicesWrapperRight > div{
+
+.servicesWrapperRight>div {
   opacity: 1;
-  transition:all 0.2s ease-in;
+  transition: all 0.2s ease-in;
   margin-top: 100px;
 }
-.servicesWrapperRight > div p,
-.servicesWrapperRight > div ul li{
+
+.servicesWrapperRight>div p,
+.servicesWrapperRight>div ul li {
   font-size: 17px;
 }
-@media (width>= 1300px){
-  .servicesWrapperRight > div{
-    padding-top:100px;
+
+@media (width>=1300px) {
+  .servicesWrapperRight>div {
+    padding-top: 100px;
   }
 }
 
@@ -512,28 +540,33 @@ img {
 .slick-prev,
 .slick-next {
   position: absolute !important;
-  bottom:-14px !important;
+  bottom: -14px !important;
   top: auto !important;
   z-index: 1;
   cursor: pointer;
 }
-.slick-prev:before, .slick-next:before{
+
+.slick-prev:before,
+.slick-next:before {
   font-size: 37px !important;
-    padding: 5.2px 2.1px 0px 3px;
-    color:#1a66fbd4!important;
-  background-color:hsl(219, 100%, 95%)!important;
+  padding: 5.2px 2.1px 0px 3px;
+  color: #1a66fbd4 !important;
+  background-color: hsl(219, 100%, 95%) !important;
   border-radius: 50%;
   opacity: 1 !important;
 }
+
 .slick-prev {
   left: auto !important;
   right: 130px;
 }
-.servicesUl li{
+
+.servicesUl li {
   list-style-type: none;
   position: relative;
 }
-.servicesUl li::before{
+
+.servicesUl li::before {
   content: '';
   background-image: url('./images/tick.png');
   background-position: center;
@@ -544,11 +577,83 @@ img {
   height: 17px;
   width: 17px;
 }
+
 .slick-next {
-  right: 80px!important;
+  right: 80px !important;
 }
 
-.allRooms{
+
+.roomDetails {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.roomDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 600px;
+  margin: auto;
+}
+
+.roomDetailsTable {
+  width: 100%;
+}
+
+.roomDetailsTable,
+.roomDetailsTable th,
+.roomDetailsTable td {
+  border: 1px solid rgb(187 187 187);
+  border-collapse: collapse;
+  text-align: left;
+  padding: 5px 12px;
+  font-size: 12px;
+}
+
+.roomDetailHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 25px;
+  background: #577ed0;
+  padding: 10px 10px 10px 18px;
+  border-radius: 2px;
+  color: #fff;
+  align-items: flex-start;
+}
+
+.roomDetailHeader img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.allRooms>div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.pgWrapper,
+.roomDetails {
+  padding-top: 30px;
+}
+
+
+@media screen and (max-width:767px) {
+  .allRooms>div {
+    grid-template-columns: 1fr;
+  }
+  .pgWrapper,
+.roomDetails {
   padding-top: 50px;
-  height: calc(100vh - 65px);
+}
+}
+
+@media screen and(min-width:768px) {
+  .allRooms,
+  .roomDetails {
+    height: calc(100vh - 65px);
+  }
 }

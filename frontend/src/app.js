@@ -5,7 +5,7 @@ import Contact from './pages/contact';
 import Projects from './pages/projects';
 import Blogs from './pages/blogs';
 import SinglePost from './pages/SinglePost';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import axios from 'axios';
 import { useState, createContext, useEffect } from 'react';
 import Login from './pages/login';
@@ -19,7 +19,7 @@ const blogCategories = createContext(null);
 const popularBlogPosts = createContext(null);
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export default function App() {
+export default function App({validUser,setValidUser}) {
 
     const [data, setData] = useState([]);   // All blogs data 
     const [categories, setCategories] = useState({});   // Categories list define by Admin
@@ -76,7 +76,7 @@ export default function App() {
                 setData(values[0]);
                 setCategories(values[1]);
                 setPopularPost(values[2]);
-            });
+            })
         }
         my()
     }, [])
@@ -98,7 +98,7 @@ export default function App() {
                         <Route path="contact" element={<Contact />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/pg" element={<Pg />} />
+                        <Route path="/pg" element={validUser?<Pg />:<Navigate to={<Home />} />} />
                         <Route path="/pg/:path" element={<RoomDetails />} />
                         <Route path="/addRoom" element={<AddRoom />} />
                     </Routes>
@@ -108,5 +108,5 @@ export default function App() {
         </>
     )
 }
-
+ 
 export { blogData, blogCategories, popularBlogPosts }; 

@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -20,6 +21,7 @@ function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,7 +31,7 @@ function Register() {
       password: password,
     }; 
     try {
-      const response = await axios.post(`http://${serverUrl}/api/user-register`, payload, {
+      const response = await axios.post(`${serverUrl}/api/user-register`, payload, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -41,6 +43,7 @@ function Register() {
         setName('');
         setEmail('');
         setPassword('');
+        navigate("/login");
       } else {
         console.error('Registration failed', response.data);
         // Handle registration failure
@@ -63,7 +66,7 @@ function Register() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">

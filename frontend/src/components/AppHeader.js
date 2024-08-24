@@ -7,7 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-// import logo from '../images/logo.png';
 import { Link } from "react-router-dom";
 import HeaderAnimation from './HeaderAnimation';
 import Avatar from '@mui/material/Avatar';
@@ -16,14 +15,10 @@ import Tooltip from '@mui/material/Tooltip';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import Person from '@mui/icons-material/Person';
+import BusinessIcon from '@mui/icons-material/Business';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-
-
-
-
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = "80%";
 setTimeout(() => {
@@ -55,7 +50,7 @@ setTimeout(() => {
   }
 }, 100);
 
-export default function AppHeader(props) {
+export default function AppHeader({window,validUser,setValidUser}) {
 
   const Active = (event) => {
     let arr = document.querySelectorAll('.menuBtn');
@@ -74,7 +69,6 @@ export default function AppHeader(props) {
     event.target.style.color = 'rgb(65 128 252)';
   }
 
-  const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -89,33 +83,28 @@ export default function AppHeader(props) {
     minWidth: "0px",
     textDecoration: 'none',
   }
-  const mobileMenuArrrow = {
-    fontSize:'30px',
-    position:'relative',
-    top:'-2px'
-  }
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign:'left',paddingLeft:{xs:'30px',sm:'0px'} }} mt={4}>
       <Box sx={{ marginTop:{xs:"-10px",sm:"10px"}, marginBottom:{xs:'20px',sm:'40px'} }}>
-        <p className='logoText'>Riser</p>
+        <p className='logoText'>{validUser.name ? validUser.name : "Riser"}</p>
         {/* <img src={logo} style={{ width: "280px", height: "35px" }} alt="logo" className='siteLogo' id="logoImg" /> */}
       </Box>
       <List sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Link to='/' className="menuBtn M" style={linkCss} onClick={Active}>
-          HOME <span style={mobileMenuArrrow}>&rarr;</span>
+          HOME 
         </Link>
         <Link to='/about' className="menuBtn M" style={linkCss} onClick={Active}>
-          ABOUT US <span style={mobileMenuArrrow}>&rarr;</span>
+          ABOUT US 
         </Link>
         <Link to='/projects' className="menuBtn M" style={linkCss} onClick={Active}>
-          PROJECTS <span style={mobileMenuArrrow}>&rarr;</span>
+          PROJECTS
         </Link>
         <Link to='/blogs' className="menuBtn M" style={linkCss} onClick={Active}>
-          BLOGS <span style={mobileMenuArrrow}>&rarr;</span>
+          BLOGS
         </Link>
         <Link to='/contact' className="menuBtn M" style={linkCss} onClick={Active}>
-          HIRE Us! <span style={mobileMenuArrrow}>&rarr;</span>
+          HIRE Us!
         </Link>
       </List>
     </Box>
@@ -143,6 +132,14 @@ export default function AppHeader(props) {
     setAnchorEl(null);
   };
 
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("usersToken");
+    setValidUser({});
+    navigate("/");
+  };
+
   return (
     <>
       <Box sx={AppHeaderWrapperCss} className="appBar" id="appHeader">
@@ -150,7 +147,7 @@ export default function AppHeader(props) {
         <AppBar className='siteWidth' component="nav" sx={{right:'auto', boxShadow: "none", backgroundColor: { xs: "#505759", md: "transparent" }, position: "fixed", top: "0px", zIndex: "10" }} >
           <Toolbar style={{ display: "flex", justifyContent: "space-between", height: "65px", padding: "0px" }}>
             <Box style={{ marginTop: "10px" }}>
-              <p className='logoText'>Riser</p>
+              <p className='logoText'>{validUser.name ? validUser.name : "Riser"}</p>
               {/* <img src={logo} style={{ width: "280px", height: "35px" }} alt="logo" className='siteLogo' id="logoImg" /> */}
             </Box>
             <Box sx={{ display: { xs: 'none', md: 'block' } }} className="menuList">
@@ -169,10 +166,11 @@ export default function AppHeader(props) {
               <Link to='/contact' className="menuBtn" style={linkCss} onClick={Active}>
                 Connect
               </Link>
-              <Link to='/login' className="menuBtn" style={linkCss} onClick={Active}>
+              {!validUser.name ? (
+                <Link to='/login' className="menuBtn" style={linkCss} onClick={Active}>
                 Login
               </Link>
-              <Tooltip title="Account settings">
+              ):(<Tooltip title="My Menu">
                 <IconButton
                   onClick={handleClick}
                   size="small"
@@ -183,7 +181,8 @@ export default function AppHeader(props) {
                 >
                   <Avatar color="primary" sx={{ width: 34, height: 34 }}/>
                 </IconButton>
-              </Tooltip>
+              </Tooltip>)}
+              
             </Box>
             
           </Toolbar>
@@ -255,17 +254,11 @@ export default function AppHeader(props) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
-        <Link to="/pg">
+   
+        <Link to="/pg" style={{textDecoration:"none",color:"#000"}}>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <Person fontSize="small" />
+            <BusinessIcon fontSize="small" />
           </ListItemIcon>
           Business Dashbord
         </MenuItem>
@@ -276,7 +269,7 @@ export default function AppHeader(props) {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
