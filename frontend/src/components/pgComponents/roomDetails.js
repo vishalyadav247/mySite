@@ -1,94 +1,94 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import HeaderDiv from '../HeaderDiv';
 import Button from '@mui/material/Button';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
+export default function RoomDetails({room}) {
 
-export default function RoomDetails() {
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
+    const [guest, setGuest] = useState({});
+    useEffect(() => {
+        const getGuest = async () => {
+            const payload = {
+                currentGuest: room.currentGuest
+            };
+            const response = await axios.post(`${serverUrl}/api/get-guest`, payload, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            })
+            setGuest(response.data.guest)
+        }
+        getGuest()
+    }, [])
 
   const path = useParams();
-  console.log(path)
-  const [activeTab, setActiveTab] = React.useState('guestInfo');
+  // console.log(path)
+  const [activeTab1, setActiveTab1] = React.useState('guestInfo');
 
-  const details = {
-    room: "Room 1",
-    guest: "vishal yadav",
-    phone: "7669664266",
-    adhaarID: "754086896355",
-    checkinDate: "15 August 2024",
-    guestImg: "/static/media/weare.c205013abd053522770a.jpg",
-    totalDuration: "1 year 2 months",
-    payments: "clear",
-    jobProfile: "Contractor",
-    workPlace: "DSM Sugar Mill",
-    lastPayment: "2000",
-    lastElectricityReading: "210"
-  }
 
 
   return (
     <>
-      <HeaderDiv />
       <div className='roomDetails'>
-        <div className='roomDetailHeader'>
-          <h1 style={{ margin: "0" }}>{details.room}</h1>
-          <img src={details.guestImg} alt={'Guest'} />
-        </div>
+        <h1>{room.roomName}</h1>
         <div style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
-          <Button size="small" variant="outlined" sx={{ textTransform: "capitalize" }} onClick={() => setActiveTab('guestInfo')}>
+          <Button size="small" variant={activeTab1 === 'guestInfo'?"contained":"outlined"} sx={{ textTransform: "capitalize" }} onClick={() => setActiveTab1('guestInfo')}>
             Guest Info
           </Button>
-          <Button size="small" variant="outlined" sx={{ textTransform: "capitalize" }} onClick={() => setActiveTab('rentBills')}>
+          <Button size="small" variant={activeTab1 === 'rentBills'?"contained":"outlined"} sx={{ textTransform: "capitalize" }} onClick={() => setActiveTab1('rentBills')}>
             Rent Bills
           </Button>
-          <Button size="small" variant="outlined" sx={{ textTransform: "capitalize" }} onClick={() => setActiveTab('electricityBills')}>
+          <Button size="small" variant={activeTab1 === 'electricityBills'?"contained":"outlined"} sx={{ textTransform: "capitalize" }} onClick={() => setActiveTab1('electricityBills')}>
             Electricity Bills
           </Button>
         </div>
 
 
-        {activeTab === 'guestInfo' && (
+        {activeTab1 === 'guestInfo' && (
           <table className='roomDetailsTable'>
             <tr>
               <th>Guest Name</th>
-              <td>{details.guest}</td>
+              <td>{guest.guestName}</td>
             </tr>
             <tr>
               <th>Phone Number</th>
-              <td>{details.phone}</td>
+              <td>{guest.phone}</td>
             </tr>
             <tr>
               <th>Job Profile</th>
-              <td>{details.jobProfile}</td>
+              <td>{guest.jobProfile}</td>
             </tr>
             <tr>
               <th>Work Place</th>
-              <td>{details.workPlace}</td>
+              <td>{guest.workPlace}</td>
             </tr>
             <tr>
               <th>Adhaar ID</th>
-              <td>{details.adhaarID}</td>
+              <td>{guest.adhaarId}</td>
             </tr>
             <tr>
               <th>Check-In Date</th>
-              <td>{details.checkinDate}</td>
+              <td>{guest.checkIn}</td>
             </tr>
             <tr>
               <th>Total Duration</th>
-              <td>{details.totalDuration}</td>
+              <td></td>
             </tr>
             <tr>
               <th>Electricity Paid </th>
-              <td>24 August (320 Rs)</td>
+              <td></td>
             </tr>
             <tr>
               <th>Rent Paid</th>
-              <td>August (2000 Rs)</td>
+              <td></td>
             </tr>
           </table>
         )}
 
-        {activeTab === 'rentBills' && (
+        {activeTab1 === 'rentBills' && (
              <table className='roomDetailsTable'>
              <thead>
                <tr>
@@ -117,7 +117,7 @@ export default function RoomDetails() {
            </table>
         )}
 
-        {activeTab === 'electricityBills' && (
+        {activeTab1 === 'electricityBills' && (
           <table className='roomDetailsTable'>
             <thead>
               <tr>
@@ -136,7 +136,7 @@ export default function RoomDetails() {
             </tr>
             <tr>
               <td>24/ 1 July - 31 July</td>
-              <td>{details.lastElectricityReading}</td>
+              <td>11</td>
               <td>320</td>
               <td>110</td>
             </tr>

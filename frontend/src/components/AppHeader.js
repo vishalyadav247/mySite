@@ -179,7 +179,7 @@ export default function AppHeader({window,validUser,setValidUser}) {
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
                 >
-                  <Avatar color="primary" sx={{ width: 34, height: 34 }}/>
+                  <Avatar color="primary" sx={{ width: 34, height: 34 ,bgcolor: 'rgb(65 128 252)' }}/>
                 </IconButton>
               </Tooltip>)}
               

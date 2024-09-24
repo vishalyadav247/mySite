@@ -13,13 +13,17 @@ import Register from './pages/register';
 import Pg from './pages/pg';
 import RoomDetails from './components/pgComponents/roomDetails';
 import AddRoom from './components/pgComponents/addRoom';
+import { useNavigate } from 'react-router-dom';
+
 
 const blogData = createContext(null);
 const blogCategories = createContext(null);
 const popularBlogPosts = createContext(null);
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export default function App({validUser,setValidUser}) {
+export default function App({ validUser, setValidUser }) {
+
+    console.log('hi', validUser)
 
     const [data, setData] = useState([]);   // All blogs data 
     const [categories, setCategories] = useState({});   // Categories list define by Admin
@@ -31,7 +35,7 @@ export default function App({validUser,setValidUser}) {
             const p1 = new Promise((resolve, reject) => {
                 axios.get(`${apiUrl}/wp-json/wp/v2/posts?per_page=100`).then((response) => {
                     const arr = response.data
-                    const posts = [...arr , ...arr];
+                    const posts = [...arr, ...arr];
                     resolve(posts)
                 })
             });
@@ -72,7 +76,7 @@ export default function App({validUser,setValidUser}) {
                 })
             })
             Promise.all([p1, p2, p3]).then((values) => {
-                console.log('val',values)
+                console.log('val', values)
                 setData(values[0]);
                 setCategories(values[1]);
                 setPopularPost(values[2]);
@@ -81,32 +85,43 @@ export default function App({validUser,setValidUser}) {
         my()
     }, [])
 
+    
+    const PgRoute = ({ validUser }) => {
+        const navigate = useNavigate();
+
+        useEffect(() => {
+            if (!validUser.name) navigate("/"); // Redirect if invalid user
+        }, [validUser, navigate]);
+
+        return validUser.name ? <Pg /> : 'e';
+    };
+
     return (
         <>
             <blogData.Provider value={data}>
                 <blogCategories.Provider value={categories}>
                     <popularBlogPosts.Provider value={popularPost}>
-                    <Routes>
-                        {/* Navigtion Routes */}
-                        <Route index path="/" element={<Home />} />
-                        <Route path="about" element={<About />} />
-                        <Route path="projects" element={<Projects />} />
-                        <Route path="blogs" element={<Blogs />} />
-                        {/* blog detail page route */}
-                        <Route path="/posts/:slug" element={<SinglePost />} />
-                        <Route path="/categories/:categoryName" element={<Blogs />} />
-                        <Route path="contact" element={<Contact />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/pg" element={validUser?<Pg />:<Navigate to={<Home />} />} />
-                        <Route path="/pg/:path" element={<RoomDetails />} />
-                        <Route path="/addRoom" element={<AddRoom />} />
-                    </Routes>
+                        <Routes>
+                            {/* Navigtion Routes */}
+                            <Route index path="/" element={<Home />} />
+                            <Route path="about" element={<About />} />
+                            <Route path="projects" element={<Projects />} />
+                            <Route path="blogs" element={<Blogs />} />
+                            {/* blog detail page route */}
+                            <Route path="/posts/:slug" element={<SinglePost />} />
+                            <Route path="/categories/:categoryName" element={<Blogs />} />
+                            <Route path="contact" element={<Contact />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/pg" element={<PgRoute validUser={validUser} />} />
+                            <Route path="/pg/:path" element={<RoomDetails />} />
+                            <Route path="/pg/add-room" element={<AddRoom />} />
+                        </Routes>
                     </popularBlogPosts.Provider>
                 </blogCategories.Provider>
             </blogData.Provider >
         </>
     )
 }
- 
+
 export { blogData, blogCategories, popularBlogPosts }; 
