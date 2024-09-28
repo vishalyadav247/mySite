@@ -4,14 +4,17 @@ const cors = require('cors');
 const app = express();
 const Router = require('./routes/auth-route')
 const cookieParser = require('cookie-parser')
+const path = require('path')
+const _dirname = path.dirname("")
+const buildPath = path.join(_dirname,"../frontend/build")
 
 app.use(express.json());
 const corsOptions = {
-  origin: 'http://localhost:3000', 
-  credentials: true,    
+  'origin': '*'
 };
 app.use(cors(corsOptions))
 app.use(cookieParser())
+app.use(express.static(buildPath))
 
 app.use('/api',Router)
 app.get("/",async (req,res)=>{

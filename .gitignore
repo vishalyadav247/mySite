@@ -1,4 +1,6 @@
 
 /frontend/node_modules
 /server/node_modules
-
+/server/build
+/frontend/.env
+/server/.env
