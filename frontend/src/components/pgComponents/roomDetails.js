@@ -1,156 +1,76 @@
-import * as React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { RoomContext } from '../../useContext/roomContext';
+import RoomInfo from './roomInfo';
+import RoomRent from './roomRent';
+import RoomElectricity from './roomElectricity';
+import { Box } from '@mui/material';
 
-export default function RoomDetails({room}) {
+const serverUrl = process.env.REACT_APP_SERVER_URL;
 
-  const serverUrl = process.env.REACT_APP_SERVER_URL;
-    const [guest, setGuest] = useState({});
-    useEffect(() => {
-        const getGuest = async () => {
-            const payload = {
-                currentGuest: room.currentGuest
-            };
-            const response = await axios.post(`${serverUrl}/api/get-guest`, payload, {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                withCredentials: true
-            })
-            setGuest(response.data.guest)
-        }
-        getGuest()
-    }, [])
+export default function RoomDetails() {
 
-  const path = useParams();
-  // console.log(path)
-  const [activeTab1, setActiveTab1] = React.useState('guestInfo');
+  const { roomName } = useParams();
+  const {allRooms} = useContext(RoomContext);
+  const [guest, setGuest] = useState({});
+  const [room, setRoom] = useState({});
+  const [isVisible, setIsVisible] = useState('roomInfo');
 
+  useEffect(()=>{
+    const matchedRoom = allRooms.find(room => room.roomName === roomName.replace("_", " "));
+    setRoom(matchedRoom);
+  },[])
+  // First useEffect: Set room when allRooms or roomName changes
+  useEffect(() => {
+    console.log('che', room)
+  }, [room]);
 
+  // Second useEffect: Fetch guest data when the room changes
+  useEffect(() => {
+    if (room && room.currentGuest) {
+      const getGuest = async () => {
+        const payload = {
+          currentGuest: room.currentGuest
+        };
+        const response = await axios.post(`${serverUrl}/api/get-guest`, payload, {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        });
+        setGuest(response.data.guest);
+      };
+      getGuest();
+    }
+  }, [room]);
+
+  const detailTab = {
+    margin: "0",
+    padding: "8px 10px",
+    borderBottom: "2px solid #fff",
+    cursor: "pointer"
+  }
 
   return (
     <>
-      <div className='roomDetails'>
-        <h1>{room.roomName}</h1>
-        <div style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
-          <Button size="small" variant={activeTab1 === 'guestInfo'?"contained":"outlined"} sx={{ textTransform: "capitalize" }} onClick={() => setActiveTab1('guestInfo')}>
-            Guest Info
-          </Button>
-          <Button size="small" variant={activeTab1 === 'rentBills'?"contained":"outlined"} sx={{ textTransform: "capitalize" }} onClick={() => setActiveTab1('rentBills')}>
-            Rent Bills
-          </Button>
-          <Button size="small" variant={activeTab1 === 'electricityBills'?"contained":"outlined"} sx={{ textTransform: "capitalize" }} onClick={() => setActiveTab1('electricityBills')}>
-            Electricity Bills
-          </Button>
-        </div>
+      <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr", height: "calc(100vh - 150px)", gap: "20px" }}>
+        <Box className='roomDetails' sx={{ display: "grid", gridTemplateColumns: "180px auto", gap: "5px" }}>
+          <Box sx={{ background: 'rgb(234 234 234)' }}>
+            <p className={isVisible === 'roomInfo' ? 'tabActive' : ''} style={detailTab} onClick={() => setIsVisible('roomInfo')}>Room Info</p>
+            <p className={isVisible === 'rentDetails' ? 'tabActive' : ''} style={detailTab} onClick={() => setIsVisible('rentDetails')}>Rent Details</p>
+            <p className={isVisible === 'electricityDetails' ? 'tabActive' : ''} style={detailTab} onClick={() => setIsVisible('electricityDetails')}>Electricity Details</p>
+          </Box>
+          <div>
+            {isVisible === 'roomInfo' && <RoomInfo room={room} guest={guest} />}
+            {isVisible === 'rentDetails' && <RoomRent room={room} guest={guest} />}
+            {isVisible === 'electricityDetails' && <RoomElectricity room={room} guest={guest} />}
+          </div>
+        </Box>
+        <Box sx={{ border: "1px solid #000" }}>
 
-
-        {activeTab1 === 'guestInfo' && (
-          <table className='roomDetailsTable'>
-            <tr>
-              <th>Guest Name</th>
-              <td>{guest.guestName}</td>
-            </tr>
-            <tr>
-              <th>Phone Number</th>
-              <td>{guest.phone}</td>
-            </tr>
-            <tr>
-              <th>Job Profile</th>
-              <td>{guest.jobProfile}</td>
-            </tr>
-            <tr>
-              <th>Work Place</th>
-              <td>{guest.workPlace}</td>
-            </tr>
-            <tr>
-              <th>Adhaar ID</th>
-              <td>{guest.adhaarId}</td>
-            </tr>
-            <tr>
-              <th>Check-In Date</th>
-              <td>{guest.checkIn}</td>
-            </tr>
-            <tr>
-              <th>Total Duration</th>
-              <td></td>
-            </tr>
-            <tr>
-              <th>Electricity Paid </th>
-              <td></td>
-            </tr>
-            <tr>
-              <th>Rent Paid</th>
-              <td></td>
-            </tr>
-          </table>
-        )}
-
-        {activeTab1 === 'rentBills' && (
-             <table className='roomDetailsTable'>
-             <thead>
-               <tr>
-                 <th>Month</th>
-                 <th>Guest</th>
-                 <th>Amt (Rs)</th>
-               </tr>
-             </thead>
-             <tbody>
-             <tr>
-               <td>August 2024</td>
-               <td>Vishal yadav</td>
-               <td>2000</td>
-             </tr>
-             <tr>
-               <td>July 2024</td>
-               <td>Vishal yadav</td>
-               <td>2000</td>
-             </tr>
-             <tr>
-               <td>June 2024</td>
-               <td>Vishal yadav</td>
-               <td>2000</td>
-             </tr>
-             </tbody>
-           </table>
-        )}
-
-        {activeTab1 === 'electricityBills' && (
-          <table className='roomDetailsTable'>
-            <thead>
-              <tr>
-                <th>Date (From - To)</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Unit</th>
-              </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>24/ 1 Aug - tracking</td>
-              <td>320</td>
-              <td>-</td>
-              <td> - </td>
-            </tr>
-            <tr>
-              <td>24/ 1 July - 31 July</td>
-              <td>11</td>
-              <td>320</td>
-              <td>110</td>
-            </tr>
-            <tr>
-              <td>24/ 1 June - 31 June</td>
-              <td>90</td>
-              <td>210</td>
-              <td>120</td>
-            </tr>
-            </tbody>
-          </table>
-        )}
-
-      </div>
+        </Box>
+      </Box>
     </>
   );
 }

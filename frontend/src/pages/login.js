@@ -15,6 +15,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const theme = createTheme();
@@ -24,6 +25,7 @@ function Login() {
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
+    toast.success('Logged In Successfully');
     const data = new FormData(event.currentTarget);
     const payload = {
       email: data.get('email'),
@@ -38,16 +40,23 @@ function Login() {
       }
       )
       if (response.status === 200) {
-        localStorage.setItem("usersToken",response.data.token)
-        navigate("/");
+        setTimeout(() => {
+          navigate("/");
+        }, 700);
       }
     } catch (error) {
-        console.log('wrong credintials', error)
+      console.log('Wrong credentials', error);
+      window.alert("Invalid credentials. Please try again.");
     }
   };
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={600}
+        theme="light"
+      />
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />

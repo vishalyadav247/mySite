@@ -1,4 +1,6 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -7,10 +9,11 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import HeaderAnimation from './HeaderAnimation';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
+import { ToastContainer, toast } from 'react-toastify';
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -18,56 +21,45 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import BusinessIcon from '@mui/icons-material/Business';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = "80%";
-setTimeout(() => {
-  let address = window.location.pathname;
-  if (address === '/') {
-    let lnks = document.querySelectorAll('.menuBtn');
-    let lnkArr = Array.from(lnks);
-    lnkArr[0].style.color = 'rgb(65 128 252)'
-  }
-  else if (address === '/about') {
-    let lnks = document.querySelectorAll('.menuBtn');
-    let lnkArr = Array.from(lnks);
-    lnkArr[1].style.color = 'rgb(65 128 252)'
-  }
-  else if (address === '/projects') {
-    let lnks = document.querySelectorAll('.menuBtn');
-    let lnkArr = Array.from(lnks);
-    lnkArr[2].style.color = 'rgb(65 128 252)'
-  }
-  else if (address === '/blogs' || address.includes('/posts') || address.includes('/categories')) {
-    let lnks = document.querySelectorAll('.menuBtn');
-    let lnkArr = Array.from(lnks);
-    lnkArr[3].style.color = 'rgb(65 128 252)'
-  }
-  else if (address === '/contact') {
-    let lnks = document.querySelectorAll('.menuBtn');
-    let lnkArr = Array.from(lnks);
-    lnkArr[4].style.color = 'rgb(65 128 252)'
-  }
-}, 100);
 
-export default function AppHeader({window,validUser,setValidUser}) {
+const serverUrl = process.env.REACT_APP_SERVER_URL;
+export default function AppHeader({ window }) {
 
-  const Active = (event) => {
-    let arr = document.querySelectorAll('.menuBtn');
-    let arrM = document.querySelectorAll('.menuBtn.M');
-    let linkArr = Array.from(arr);
-    let linkArrM = Array.from(arrM);
-    for (let link of linkArr) {
-      link.style.color = '#000000'
+  const navigate = useNavigate(); // For navigation
+  const location = useLocation();
+
+  const [validUser, setValidUser] = useState(null);
+
+  const userValidation = async () => {
+    try {
+      const response = await axios.get(`${serverUrl}/api/validate-user`, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+
+      console.log('Validation response:', response);
+      setValidUser(response.data);
+
+    } catch (error) {
+      // Handle the error and redirect to login if unauthorized
+      if (error.response && error.response.status === 401) {
+        console.log('User not verified. Redirecting to login.');
+      } else {
+        console.error('Error validating user:', error);
+      }
     }
-    for (let link of linkArrM) {
-      link.style.color = '#000000'
-    }
-   
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-    event.target.style.color = 'rgb(65 128 252)';
-  }
+  };
+
+  useEffect(() => {
+    userValidation()
+  }, [])
+  useEffect(() => {
+
+  }, [validUser])
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -85,27 +77,27 @@ export default function AppHeader({window,validUser,setValidUser}) {
   }
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign:'left',paddingLeft:{xs:'30px',sm:'0px'} }} mt={4}>
-      <Box sx={{ marginTop:{xs:"-10px",sm:"10px"}, marginBottom:{xs:'20px',sm:'40px'} }}>
-        <p className='logoText'>{validUser.name ? validUser.name : "Riser"}</p>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'left', paddingLeft: { xs: '30px', sm: '0px' } }} mt={4}>
+      <Box sx={{ marginTop: { xs: "-10px", sm: "10px" }, marginBottom: { xs: '20px', sm: '40px' } }}>
+        <p className='logoText'>Riser</p>
         {/* <img src={logo} style={{ width: "280px", height: "35px" }} alt="logo" className='siteLogo' id="logoImg" /> */}
       </Box>
       <List sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <Link to='/' className="menuBtn M" style={linkCss} onClick={Active}>
-          HOME 
-        </Link>
-        <Link to='/about' className="menuBtn M" style={linkCss} onClick={Active}>
-          ABOUT US 
-        </Link>
-        <Link to='/projects' className="menuBtn M" style={linkCss} onClick={Active}>
+        <NavLink to='/' className={(e) => { return e.isActive ? "navActive menuBtn" : 'menuBtn' }} style={linkCss} >
+          HOME
+        </NavLink>
+        <NavLink to='/about' className={(e) => { return e.isActive ? "navActive menuBtn" : 'menuBtn' }} style={linkCss} >
+          ABOUT US
+        </NavLink>
+        <NavLink to='/projects' className={(e) => { return e.isActive ? "navActive menuBtn" : 'menuBtn' }} style={linkCss} >
           PROJECTS
-        </Link>
-        <Link to='/blogs' className="menuBtn M" style={linkCss} onClick={Active}>
+        </NavLink>
+        <NavLink to='/blogs' className={(e) => { return e.isActive ? "navActive menuBtn" : 'menuBtn' }} style={linkCss} >
           BLOGS
-        </Link>
-        <Link to='/contact' className="menuBtn M" style={linkCss} onClick={Active}>
-          HIRE Us!
-        </Link>
+        </NavLink>
+        <NavLink to='/contact' className={(e) => { return e.isActive ? "navActive menuBtn" : 'menuBtn' }} style={linkCss} >
+          Connect
+        </NavLink>
       </List>
     </Box>
   );
@@ -132,59 +124,74 @@ export default function AppHeader({window,validUser,setValidUser}) {
     setAnchorEl(null);
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("usersToken");
-    setValidUser({});
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      let response = await axios.post(`${serverUrl}/api/logout`, {}, { withCredentials: true });
+      console.log(response)
+      toast.success('Logged Out Successfully');
+      setValidUser(null)
+      if (location.pathname.includes('/pg')) {
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Logout Error:', error);
+    }
   };
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={600}
+        theme="light"
+      />
+
       <Box sx={AppHeaderWrapperCss} className="appBar" id="appHeader">
         <CssBaseline />
-        <AppBar className='siteWidth' component="nav" sx={{right:'auto', boxShadow: "none", backgroundColor: { xs: "#505759", md: "transparent" }, position: "fixed", top: "0px", zIndex: "10" }} >
+        <AppBar className='siteWidth' component="nav" sx={{ right: 'auto', boxShadow: "none", backgroundColor: { xs: "#505759", md: "transparent" }, position: "fixed", top: "0px", zIndex: "10" }} >
           <Toolbar style={{ display: "flex", justifyContent: "space-between", height: "65px", padding: "0px" }}>
             <Box style={{ marginTop: "10px" }}>
-              <p className='logoText'>{validUser.name ? validUser.name : "Riser"}</p>
+              <p className='logoText'>{validUser?.name ? validUser.name : 'Riser'}</p>
               {/* <img src={logo} style={{ width: "280px", height: "35px" }} alt="logo" className='siteLogo' id="logoImg" /> */}
             </Box>
             <Box sx={{ display: { xs: 'none', md: 'block' } }} className="menuList">
-              <Link to='/' className="menuBtn" style={linkCss} onClick={Active}>
-                HOME 
-              </Link>
-              <Link to='/about' className="menuBtn" style={linkCss} onClick={Active}>
+              <NavLink to='/' className={(e) => { return e.isActive ? "navActive menuBtn" : 'menuBtn' }} style={linkCss} >
+                HOME
+              </NavLink>
+              <NavLink to='/about' className={(e) => { return e.isActive ? "navActive menuBtn" : 'menuBtn' }} style={linkCss} >
                 ABOUT US
-              </Link>
-              <Link to='/projects' className="menuBtn" style={linkCss} onClick={Active}>
+              </NavLink>
+              <NavLink to='/projects' className={(e) => { return e.isActive ? "navActive menuBtn" : 'menuBtn' }} style={linkCss} >
                 PROJECTS
-              </Link>
-              <Link to='/blogs' className="menuBtn" style={linkCss} onClick={Active}>
+              </NavLink>
+              <NavLink to='/blogs' className={(e) => { return e.isActive ? "navActive menuBtn" : 'menuBtn' }} style={linkCss} >
                 BLOGS
-              </Link>
-              <Link to='/contact' className="menuBtn" style={linkCss} onClick={Active}>
+              </NavLink>
+              <NavLink to='/contact' className={(e) => { return e.isActive ? "navActive menuBtn" : 'menuBtn' }} style={linkCss} >
                 Connect
-              </Link>
-              {!validUser.name ? (
-                <Link to='/login' className="menuBtn" style={linkCss} onClick={Active}>
-                Login
-              </Link>
-              ):(<Tooltip title="My Menu">
-                <IconButton
-                  onClick={handleClick}
-                  size="small"
-                  sx={{ ml: 5 }}
-                  aria-controls={open ? 'account-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                >
-                  <Avatar color="primary" sx={{ width: 34, height: 34 ,bgcolor: 'rgb(65 128 252)' }}/>
-                </IconButton>
-              </Tooltip>)}
-              
+              </NavLink>
+              {validUser?.name ? (
+                <Tooltip title="My Menu">
+                  <IconButton
+                    onClick={handleClick}
+                    size="small"
+                    sx={{ ml: 6, p: 0 }}
+                    aria-controls={open ? 'account-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                  >
+                    <Avatar color="primary" sx={{ width: 34, height: 34, bgcolor: '#414242' }} />
+                  </IconButton>
+                </Tooltip>
+              ) : (
+                <NavLink to='/login' className={(e) => { return e.isActive ? "navActive menuBtn" : 'menuBtn' }} style={linkCss} >
+                  Login
+                </NavLink>
+              )}
             </Box>
-            
+
           </Toolbar>
         </AppBar>
         <Box component="nav">
@@ -202,23 +209,46 @@ export default function AppHeader({window,validUser,setValidUser}) {
             }}
           >
             {drawer}
+
           </Drawer>
-          
+
         </Box>
         <Box component="main" sx={{ p: 3 }}>
           <Toolbar />
         </Box>
         <HeaderAnimation />
       </Box>
-      <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        edge="start"
-        onClick={handleDrawerToggle}
-        sx={{ mr: 2, display: { md: 'none' }, position: 'fixed', right: '-10px', top: '10px', zIndex: '1111111' }}
-      >
-        <MenuIcon id='ia' fontSize='large' />
-      </IconButton>
+
+
+      <Box sx={{ mr: 2, display: {xs:'flex', md: 'none' }, position: 'fixed', top: '10px', zIndex: '1' ,justifyContent:'space-between',padding:'0 15px',width:'100%',alignItems:'center'}}>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+        >
+          <MenuIcon id='ia' fontSize='large' />
+        </IconButton>
+        {validUser?.name ? (
+          <Tooltip title="My Menu">
+            <IconButton
+              onClick={handleClick}
+              size="small"
+              sx={{ ml:{md:6} , p: 0 }}
+              aria-controls={open ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+            >
+              <Avatar color="primary" sx={{ width: 34, height: 34, bgcolor: '#414242' }} />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <NavLink to='/login' className={(e) => { return e.isActive ? "navActive menuBtn" : 'menuBtn' }} style={linkCss} >
+            Login
+          </NavLink>
+        )}
+      </Box>
+
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
@@ -254,14 +284,14 @@ export default function AppHeader({window,validUser,setValidUser}) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-   
-        <Link to="/pg" style={{textDecoration:"none",color:"#000"}}>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <BusinessIcon fontSize="small" />
-          </ListItemIcon>
-          Business Dashbord
-        </MenuItem>
+
+        <Link to="/pg" style={{ textDecoration: "none", color: "#000" }}>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <BusinessIcon fontSize="small" />
+            </ListItemIcon>
+            Business Dashbord
+          </MenuItem>
         </Link>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>

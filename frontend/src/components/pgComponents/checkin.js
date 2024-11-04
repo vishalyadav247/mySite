@@ -1,11 +1,13 @@
 import React from 'react'
 import { TextField, Box, Button } from '@mui/material'
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
+const serverUrl = process.env.REACT_APP_SERVER_URL;
 
-function Checkin({ room }) {
+function Checkin() {
 
-    const serverUrl = process.env.REACT_APP_SERVER_URL;
+    const {roomName} = useParams();
 
     const createCheckin = async (event) => {
         event.preventDefault();
@@ -47,7 +49,7 @@ function Checkin({ room }) {
     }
     return (
         <div>
-            <p>{room.roomName} - Checkin process...</p>
+            <p>{roomName} - Checkin process...</p>
             <Box component="form" noValidate sx={{ mt: 1, display: "flex", flexDirection: "column", maxWidth: "400px" }} onSubmit={createCheckin}>
                 <TextField
                     margin="normal"
@@ -104,7 +106,7 @@ function Checkin({ room }) {
                     label="room"
                     name="room"
                     type="hidden"
-                    value={room.roomName}
+                    value={roomName}
                     sx={{visibility:"hidden"}}
                 />
                 <Button

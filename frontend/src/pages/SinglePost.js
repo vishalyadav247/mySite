@@ -131,7 +131,7 @@ export default function SinglePost() {
 
             </Box>
             {/* single post content */}
-            <Box sx={{ width: { xs: '100%', md: '73%',backgroundColor:'#ffffff',padding:'20px' } }}>
+            <Box sx={{ width: { xs: '100%', md: '73%',backgroundColor:'#ffffff',padding:'20px',paddingTop:'0' } }}>
               <Typography sx={titleCss} dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
               <img src={post.yoast_head_json.og_image[0].url} alt="blogImage" />
               <Typography sx={{ fontFamily: "open sans", fontSize: '17px',color:'#020111',fontWeight:'500' }} dangerouslySetInnerHTML={{ __html: singlePostContent }} />
