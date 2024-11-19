@@ -9,6 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import axios from 'axios';
 import { useContext } from 'react';
 import { RoomContext } from '../../useContext/roomContext';
+import { toast } from 'react-toastify';
 
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -48,8 +49,10 @@ export default function PayElectricity({ room }) {
                             })
                             refreshAllRooms()
                             console.log(response)
+                            toast.success('Electricity Paid Successfully.')
                         } catch (error) {
                             console.log('error in paying electricity', error)
+                            toast.error('Error in paying electricity.')
                         }
                         handleClose();
                     },

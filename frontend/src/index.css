@@ -648,7 +648,7 @@ img {
 
 
 
-/* ///////// css for allguest page ///////////// */ 
+/* ///////// css for allguest page ///////////// */
 .custom-header-css {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 15px 0px;
   background: #fff;
@@ -717,11 +717,13 @@ img {
 .btn {
   font-size: 15px;
 }
+
 #relationship-select-small,
-#dueDate-select-small{
+#dueDate-select-small {
   padding-top: 7px;
   padding-bottom: 6px;
 }
+
 .add-customer-btn,
 .search-input,
 .search-icon-custom,
@@ -1006,7 +1008,7 @@ img {
 
 .detail-tab-box {
   position: absolute;
-    right: 0;
+  right: 0;
 }
 
 .detail-tab-box h5 {
@@ -1138,95 +1140,101 @@ input {
   cursor: pointer;
   color: inherit;
 }
-.customerTable td{
-    word-break: break-all;
-  }
-  
-  .customerTable {
-    height: calc( 100vh - 170px );
-    /* overflow: scroll; */
-  }
-  
-  /* width */
-  .customerTable::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  .customer-details-grid textarea::-webkit-scrollbar{
-    width: 5px;
-  }
-  
-  /* Track */
-  .customer-details-grid textarea::-webkit-scrollbar-track,
-  .customerTable::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  
-  /* Handle */
-  .customer-details-grid textarea::-webkit-scrollbar-thumb,
-  .customerTable::-webkit-scrollbar-thumb {
-    background: linear-gradient(to right, rgb(234, 231, 231), rgb(190, 189, 189));
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  .customer-details-grid textarea::-webkit-scrollbar-thumb:hover,
-  .customerTable::-webkit-scrollbar-thumb:hover {
-    background: #cbcbcb;
-  }
-  
-  .customerTable thead {
-    position: sticky;
-    top: -1px;
-    z-index: 1;
-  }
-  
+
+.customerTable td {
+  word-break: break-all;
+}
+
+.customerTable {
+  height: calc(100vh - 170px);
+  /* overflow: scroll; */
+}
+
+/* width */
+.customerTable::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.customer-details-grid textarea::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.customer-details-grid textarea::-webkit-scrollbar-track,
+.customerTable::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.customer-details-grid textarea::-webkit-scrollbar-thumb,
+.customerTable::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right, rgb(234, 231, 231), rgb(190, 189, 189));
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.customer-details-grid textarea::-webkit-scrollbar-thumb:hover,
+.customerTable::-webkit-scrollbar-thumb:hover {
+  background: #cbcbcb;
+}
+
+.customerTable thead {
+  position: sticky;
+  top: -1px;
+  z-index: 1;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    height: 40vmin;
-    pointer-events: none;
+    animation: App-logo-spin infinite 20s linear;
   }
-  
-  @media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-      animation: App-logo-spin infinite 20s linear;
-    }
-  }
-  
-  .label-value:focus-visible {
-    outline: none;
-  }
-  
-  .label-value:read-only {
-    border: none;
-  }
-  select.label-value{
-    border: 1px solid #000 !important;
-    height: 28px;
-  }
-  select.label-value:disabled{
-    border: none !important;
-  }
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-  
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  .importCompany{
-    max-width: 233px;
-    border: 1px solid silver;
-    margin-right: 10px;
-    border-radius: 5px;
-    padding: 3px;
-    height: 100%;
+}
+
+.label-value:focus-visible {
+  outline: none;
+}
+
+.label-value:read-only {
+  border: none;
+}
+
+select.label-value {
+  border: 1px solid #000 !important;
+  height: 28px;
+}
+
+select.label-value:disabled {
+  border: none !important;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
   }
 
-  .filterBar{
-    display: grid !important;
-    grid-template-columns: 1fr 3fr 5fr;
-    gap: 20px;
-    margin-bottom: 10px;
+  to {
+    transform: rotate(360deg);
   }
+}
+
+.importCompany {
+  max-width: 233px;
+  border: 1px solid silver;
+  margin-right: 10px;
+  border-radius: 5px;
+  padding: 3px;
+  height: 100%;
+}
+
+.filterBar {
+  display: grid !important;
+  grid-template-columns: 1fr 3fr 5fr;
+  gap: 20px;
+  margin-bottom: 10px;
+}

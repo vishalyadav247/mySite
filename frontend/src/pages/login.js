@@ -15,7 +15,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 const theme = createTheme();
@@ -52,11 +52,6 @@ function Login() {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={600}
-        theme="light"
-      />
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />

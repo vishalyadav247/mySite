@@ -9,6 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import axios from 'axios';
 import { useContext } from 'react';
 import { RoomContext } from '../../useContext/roomContext';
+import { toast } from 'react-toastify';
 
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -47,8 +48,10 @@ export default function PayRent({ room }) {
                             })
                             refreshAllRooms()
                             console.log(response)
+                            toast.success('Rend Paid Successfully.')
                         } catch (error) {
                             console.log('error in paying rent', error)
+                            toast.error('Error in Paying Rent.')
                         }
                         handleClose();
                     },

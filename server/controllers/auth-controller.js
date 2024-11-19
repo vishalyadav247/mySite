@@ -1,41 +1,6 @@
 const { User, Room, Guest } = require('../models/auth-model.js');
-
 const bcrypt = require("bcryptjs");
-
 const timestamp = Math.floor(Date.now() / 1000);
-const axios = require('axios');
-
-async function sendWhatsAppMessage() {
-    const url = 'https://graph.facebook.com/v21.0/493848723810478/messages';
-    const token = 'EAAIAlZCSZBNn0BOZCbtZANfnS2weU9cKSzNSMi6GDc32XUmLKR8ZCOpfK5mlvlOiLZASbmQsZAES0Mx0cTjtDzFs0nlddq02VCBqYcG2kuMO62O6t4E2sqno2T55Al4ey9ZB1Fmysp1CtqeTD6RzkCxhUr4tFulhHVK0xLCOVx3aiJcBZB4ORXa7mAuCPIqLbQdr49LgGkgdHfRQaLvMrZC4WygusSC7MP'; // Replace with your actual access token
-    const recipientNumber = '917669664266'; // Replace with recipient's phone number
-
-    const data = {
-        messaging_product: 'whatsapp',
-        to: recipientNumber,
-        type: 'template',
-        template: {
-            name: 'hello_world', // Replace with the template name you want to use
-            language: {
-                code: 'en_US'
-            }
-        }
-    };
-
-    try {
-        const response = await axios.post(url, data, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-        console.log('Message sent:', response.data);
-    } catch (error) {
-        console.error('Error sending message:', error.response ? error.response.data : error.message);
-    }
-}
-
-
 
 const userRegister = async (req, res) => {
     try {
@@ -239,7 +204,6 @@ const payRent = async (req, res) => {
             { $push: { rentBills: newRentBill } },
             { new: true, runValidators: true }
         );
-        sendWhatsAppMessage();
 
         if (!updatedRoom) {
             return res.status(404).send({ message: 'Room not found.' });

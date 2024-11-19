@@ -265,7 +265,7 @@ function AllGuest() {
                         <input
                             type="text"
                             className="form-control bg-custom border-end-0 search-input"
-                            placeholder="Search Customer"
+                            placeholder="Search Guest"
                             onChange={(e) => searchItems(e.target.value)}
                         />
                         <div className="input-group-append">
@@ -406,27 +406,7 @@ function AllGuest() {
                                                 } else {
                                                     return (
                                                         <td key={column.id} >
-                                                            {row[column.id] && typeof row[column.id] === 'object' ? (
-                                                                <div>
-                                                                    {column.id === 'address' && (
-                                                                        <div>
-                                                                            <div>Street: {row[column.id].street}</div>
-                                                                            <div>Suite: {row[column.id].suite}</div>
-                                                                            <div>City: {row[column.id].city}</div>
-                                                                            <div>Zipcode: {row[column.id].zipcode}</div>
-                                                                        </div>
-                                                                    )}
-                                                                    {column.id === 'company' && (
-                                                                        <div>
-                                                                            <div>Name: {row[column.id].name}</div>
-                                                                            <div>Catch Phrase: {row[column.id].catchPhrase}</div>
-                                                                            <div>Business: {row[column.id].bs}</div>
-                                                                        </div>
-                                                                    )}
-                                                                </div>
-                                                            ) : (
-                                                                <span className={column.id}> {column.id === 'checkIn' || column.id === 'checkOut' ? readDate(row[column.id]) : row[column.id]} </span>
-                                                            )}
+                                                            <span className={column.id}> {column.id === 'checkIn' || column.id === 'checkOut' ? readDate(row[column.id]) : row[column.id]} </span>
                                                         </td>
                                                     );
                                                 }

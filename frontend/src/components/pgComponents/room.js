@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import Typography from '@mui/material/Typography';
 import Person2Icon from '@mui/icons-material/Person2';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
@@ -8,12 +9,15 @@ import PayRent from './payRent';
 import PayElectricity from './payElectricity';
 import { readDate } from '../../services/functions';
 import axios from 'axios';
+import { RoomContext } from '../../useContext/roomContext';
+import { toast } from 'react-toastify';
+
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 export default function Room({ room }) {
 
     const navigate = useNavigate();
-
+    const { refreshAllRooms } = useContext(RoomContext);
     const roomWrapper = {
         padding: "10px 13px 13px 12px",
         display: "flex",
@@ -36,17 +40,24 @@ export default function Room({ room }) {
     }
 
     const checkout = async()=>{
-        const payload = {
-            currentGuest:room.currentGuest,
-            roomName:room.roomName
+        try {
+            const payload = {
+                currentGuest:room.currentGuest,
+                roomName:room.roomName
+            }
+            const response = await axios.put(`${serverUrl}/api/guest-checkout`,payload,{
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            })
+            console.log(response)
+            toast.success('Checkout Successfully.')
+            refreshAllRooms()
+        } catch (error) {
+            console.log('error in checkout',error)
         }
-        const response = await axios.put(`${serverUrl}/api/guest-checkout`,payload,{
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            withCredentials: true
-        })
-        console.log(response)
+
     }
 
 

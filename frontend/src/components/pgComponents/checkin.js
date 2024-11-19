@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { TextField, Box, Button } from '@mui/material'
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { RoomContext } from '../../useContext/roomContext';
 
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 function Checkin() {
+
+    const navigate = useNavigate();
+    const {refreshAllRooms} = useContext(RoomContext)
 
     const {roomName} = useParams();
 
@@ -39,7 +44,11 @@ function Checkin() {
                 alert(response.data.message || 'Guest already exists');
             } else if (response.status === 201) {
                 form.reset(); // Reset the form if the room is successfully added
-                alert(response.data.message || 'Guest successfully added');
+                toast.success('Checkin Successfully.')
+                refreshAllRooms()
+                setTimeout(() => {
+                    navigate('/pg/allRooms')
+                }, 1000);
             }
 
         } catch (error) {
