@@ -1,6 +1,11 @@
-/frontend/.env
-/frontend/node_modules
-/server/node_modules
-/frontend/build
-/server/.env
+# Ignore environment files
 .env
+/server/.env
+/frontend/.env
+
+# Ignore node_modules
+/server/node_modules/
+/frontend/node_modules/
+
+# Ignore build directories
+/frontend/build/
