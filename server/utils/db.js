@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-const URI = "mongodb://localhost:27017/riser";
+const URI = process.env.DB_URI;
 const connectDB = () => {
     mongoose.connect(URI);
     const connection = mongoose.connection;
